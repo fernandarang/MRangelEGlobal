@@ -18,6 +18,7 @@ class ViewController: UIViewController {
     var authenticationviewmodel = AuthenticationViewModel()
     
     override func viewDidLoad() {
+        
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         userField.text = "fernanda"
@@ -34,12 +35,13 @@ class ViewController: UIViewController {
         MyButton.layer.cornerRadius = 10
         let gradientLayer = CAGradientLayer()
         gradientLayer.frame = MyButton.bounds
-        //radientLayer.colors = [UIColor(named: "cyan")?.cgColor, UIColor(named: "menosCyan")?.cgColor] // los colores del gradiente
+        //gradientLayer.colors = [UIColor(named: "cyan")?.cgColor, UIColor(named: "menosCyan")?.cgColor] // los colores del gradiente
         gradientLayer.startPoint = CGPoint(x: 0.0, y: 0.5) // punto de inicio del gradiente
         gradientLayer.endPoint = CGPoint(x: 1.0, y: 0.5) // punto final del gradiente
 
         // Agregar gradiente de color al fondo del botón
         MyButton.layer.insertSublayer(gradientLayer, at: 0)
+        
     }
     
     func stylestoView(){

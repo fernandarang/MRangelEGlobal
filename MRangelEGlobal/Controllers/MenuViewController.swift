@@ -17,8 +17,8 @@ class MenuViewController: UIViewController {
     let tiempoEspera: TimeInterval = 60.0
         
         // Establecer un temporizador para detectar la inactividad del usuario
+    
         var temporizadorInactividad: Timer?
-        
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -80,6 +80,7 @@ class MenuViewController: UIViewController {
         LoadData(usuarioData)
         
     }
+    
     
     func LoadData(_ usuarioData : UsuarioModel){
         
