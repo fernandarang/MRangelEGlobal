@@ -19,13 +19,14 @@ class BluetoothViewController : UIViewController {
     
     @IBOutlet weak var tableViewDevices: UITableView!
     
+    // Establecer un temporizador para detectar la inactividad del usuario
     let tiempoEspera: TimeInterval = 60.0
-        
-        // Establecer un temporizador para detectar la inactividad del usuario
-        var temporizadorInactividad: Timer?
+    var temporizadorInactividad: Timer?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        tableViewDevices.layer.cornerRadius = 16
         
         navigationController?.isNavigationBarHidden = false
         centralManager = CBCentralManager(delegate: self, queue: nil)
@@ -33,36 +34,36 @@ class BluetoothViewController : UIViewController {
         
         tableViewDevices.delegate = self
         tableViewDevices.dataSource = self
-        tableViewDevices.rowHeight = UITableView.automaticDimension
         
         iniciarTemporizador()
     }
+    
     
     // Inicio
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
             super.touchesBegan(touches, with: event)
-            
             // Reiniciar el temporizador cada vez que el usuario realiza una acción
             reiniciarTemporizador()
-        }
+    }
         
-        func iniciarTemporizador() {
-            temporizadorInactividad = Timer.scheduledTimer(withTimeInterval: tiempoEspera, repeats: false, block: { [weak self] _ in
-                // Redirigir al usuario a la página de inicio de sesión
-                //self?.irAPaginaDeInicioSesion()
-                self?.navigationController?.popToRootViewController(animated: true)
-            })
-        }
+    func iniciarTemporizador() {
+        temporizadorInactividad = Timer.scheduledTimer(withTimeInterval: tiempoEspera, repeats: false, block: { [weak self] _ in
+            // Redirigir al usuario a la página de inicio de sesión
+            self?.navigationController?.popToRootViewController(animated: true)
+        })
+    }
+    
     func reiniciarTemporizador() {
             temporizadorInactividad?.invalidate()
             iniciarTemporizador()
-        }
+    }
     
     // Fin
     
 }
-extension BluetoothViewController : UITableViewDataSource, UITableViewDelegate{
+extension BluetoothViewController : UITableViewDataSource, UITableViewDelegate {
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return peripherals.count
     }
@@ -87,12 +88,11 @@ extension BluetoothViewController : CBCentralManagerDelegate{
         if central.state == .poweredOn {
             let scanOptions = [CBCentralManagerScanOptionAllowDuplicatesKey: false]
             centralManager.scanForPeripherals(withServices: nil, options: scanOptions)
-        }else{
+        } else {
             DispatchQueue.global(qos: .background).async {
                 DispatchQueue.main.async {
                         
                     let alert = UIAlertController(title: "Bluetooth OFF", message: "Power on Bluetooth", preferredStyle: .alert)
-                    //let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
                     let okAction = UIAlertAction(title: "OK", style: .default) { action in
                         self.navigationController?.popViewController(animated: true)
                     }

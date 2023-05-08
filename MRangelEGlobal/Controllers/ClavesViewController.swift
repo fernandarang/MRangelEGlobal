@@ -21,11 +21,13 @@ class ClavesViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        clavesTableView.layer.cornerRadius = 16
+    
         clavesTableView.register(UINib(nibName: "ClaveCell", bundle: .main), forCellReuseIdentifier: "ClaveCell")
         clavesTableView.delegate = self
         clavesTableView.dataSource = self
         clavesTableView.rowHeight =  UITableView.automaticDimension
-
+        
         // Do any additional setup after loading the view.
         iniciarTemporizador()
     }

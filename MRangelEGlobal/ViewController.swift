@@ -75,7 +75,7 @@ class ViewController: UIViewController {
                     if Token == nil || usertext != "fernanda" || password != "231200"{
                         alertfalselogin()
                     }else{
-                        
+                        self.performSegue(withIdentifier: "LoginSegue", sender: self)
                     }
                 }
             }
@@ -83,7 +83,7 @@ class ViewController: UIViewController {
         
         @IBAction func buttonaction(_ sender: Any) {
             gettoken()
-            self.performSegue(withIdentifier: "LoginSegue", sender: self)
+            //self.performSegue(withIdentifier: "LoginSegue", sender: self)
         }
     
     
